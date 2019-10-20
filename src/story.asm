@@ -219,4 +219,4 @@ story_block4_lines: EQU 10
 
 ending_block1_lines: EQU 11
 
-    include "top-story-patterns.asm"
+    include "story-patterns.asm"

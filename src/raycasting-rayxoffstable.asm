@@ -1,4 +1,5 @@
 ;; xoffs/yoffs table
+;; eye_height = 5.0
 ;; horizontal resolution (full 360 degrees): 512
 ;; vertical resolution (45 degrees): 32
 ;; This table corresponds to xoffs (each row is a different x horizontal angle, for the first 128 angles:

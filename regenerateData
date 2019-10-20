@@ -1,12 +1,12 @@
 # raycasting tables:
-# java -cp java/MSXTools.jar raycasting.GenerateDistanceToYTable > src/top-distancetoytable.asm
-# java -cp java/MSXTools.jar raycasting.GenerateRayXOffsTable > src/top-raycasting-rayxoffstable.asm
-# java -cp java/MSXTools.jar raycasting.GenerateTextureVerticalRateTableTable > src/top-raycasting-textureverticalratetable.asm
-# java -cp java/MSXTools.jar raycasting.GenerateSinCosTables > src/top-sincostables.asm
+java -cp java/MSXTools.jar raycasting.GenerateDistanceToYTable 5.0 > src/distancetoyfromsumtable.asm
+java -cp java/MSXTools.jar raycasting.GenerateRayXOffsTable 5.0 > src/raycasting-rayxoffstable.asm
+java -cp java/MSXTools.jar raycasting.GenerateTextureVerticalRateTableTable 5.0 > src/raycasting-textureverticalratetable.asm
+java -cp java/MSXTools.jar raycasting.GenerateSinCosTables > src/sincostables.asm
 
 # generate the graphics files:
 java -cp java/MSXTools.jar PNGtoMSX.ConvertPatternsToAssembler gfx/tiles-8x8-MSX.png > src/tocompress/patterns.asm
-java -cp java/MSXTools.jar PNGtoMSX.ConvertNonEmptyPatternsToAssembler gfx/story.png src/top-story-images.asm src/tocompress tocompress > src/top-story-patterns.asm
+java -cp java/MSXTools.jar raycasting.ToPConvertNonEmptyPatternsToAssembler gfx/story.png src/story-images.asm src/tocompress tocompress > src/story-patterns.asm
 java -cp java/MSXTools.jar PNGtoMSX.ConvertPNGtoAssemblerSprites gfx/title-bg.png > src/tocompress/title-sprites.asm
 
 # generate the UI table from the TMX file:
