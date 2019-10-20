@@ -1,0 +1,4 @@
+java -jar java/glass-0.5.jar src/main.asm ToP2.rom ToP2.sym
+java -jar java/glass-0.5.jar src/raycasting.asm src/tocompress/raycasting.bin ToP2-raycasting.sym
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/raycasting.bin src/tocompress/raycasting.plt
+java -jar java/glass-0.5.jar src/main.asm ToP2.rom ToP2.sym

@@ -1,0 +1,88 @@
+# raycasting tables:
+# java -cp java/MSXTools.jar raycasting.GenerateDistanceToYTable > src/top-distancetoytable.asm
+# java -cp java/MSXTools.jar raycasting.GenerateRayXOffsTable > src/top-raycasting-rayxoffstable.asm
+# java -cp java/MSXTools.jar raycasting.GenerateTextureVerticalRateTableTable > src/top-raycasting-textureverticalratetable.asm
+# java -cp java/MSXTools.jar raycasting.GenerateSinCosTables > src/top-sincostables.asm
+
+# generate the graphics files:
+java -cp java/MSXTools.jar PNGtoMSX.ConvertPatternsToAssembler gfx/tiles-8x8-MSX.png > src/tocompress/patterns.asm
+java -cp java/MSXTools.jar PNGtoMSX.ConvertNonEmptyPatternsToAssembler gfx/story.png src/top-story-images.asm src/tocompress tocompress > src/top-story-patterns.asm
+java -cp java/MSXTools.jar PNGtoMSX.ConvertPNGtoAssemblerSprites gfx/title-bg.png > src/tocompress/title-sprites.asm
+
+# generate the UI table from the TMX file:
+java -cp java/MSXTools.jar:java/lib/jdom.jar TMXtoMSXConverter.TMX2Assembler gfx/ui.tmx > src/tocompress/ui.asm
+
+# compile data files:
+java -jar java/glass-0.5.jar src/tocompress/map-tunnel1.asm src/tocompress/map-tunnel1.bin
+java -jar java/glass-0.5.jar src/tocompress/map-fortress1.asm src/tocompress/map-fortress1.bin
+java -jar java/glass-0.5.jar src/tocompress/map-fortress2.asm src/tocompress/map-fortress2.bin
+java -jar java/glass-0.5.jar src/tocompress/map-catacombs1.asm src/tocompress/map-catacombs1.bin
+java -jar java/glass-0.5.jar src/tocompress/map-catacombs2.asm src/tocompress/map-catacombs2.bin
+java -jar java/glass-0.5.jar src/tocompress/map-medusa1.asm src/tocompress/map-medusa1.bin
+java -jar java/glass-0.5.jar src/tocompress/map-medusa2.asm src/tocompress/map-medusa2.bin
+java -jar java/glass-0.5.jar src/tocompress/map-keres1.asm src/tocompress/map-keres1.bin
+java -jar java/glass-0.5.jar src/tocompress/map-keres2.asm src/tocompress/map-keres2.bin
+
+java -jar java/glass-0.5.jar src/tocompress/patterns.asm src/tocompress/patterns.bin
+java -jar java/glass-0.5.jar src/tocompress/ui.asm src/tocompress/ui.bin
+java -jar java/glass-0.5.jar src/tocompress/base-sprites.asm src/tocompress/base-sprites.bin
+java -jar java/glass-0.5.jar src/tocompress/title-sprites.asm src/tocompress/title-sprites.bin
+java -jar java/glass-0.5.jar src/tocompress/medusa-sprites.asm src/tocompress/medusa-sprites.bin
+java -jar java/glass-0.5.jar src/tocompress/ker-sprites.asm src/tocompress/ker-sprites.bin
+java -jar java/glass-0.5.jar src/tocompress/story.asm src/tocompress/story.bin
+java -jar java/glass-0.5.jar src/tocompress/ending.asm src/tocompress/ending.bin
+java -jar java/glass-0.5.jar src/tocompress/story-image1.asm src/tocompress/story-image1.bin
+java -jar java/glass-0.5.jar src/tocompress/story-image2.asm src/tocompress/story-image2.bin
+java -jar java/glass-0.5.jar src/tocompress/story-image3.asm src/tocompress/story-image3.bin
+
+# java -jar java/glass-0.5.jar src/tocompress/textures.asm src/tocompress/textures.bin
+java -jar java/glass-0.5.jar src/tocompress/textures-A.asm src/tocompress/textures-A.bin
+java -jar java/glass-0.5.jar src/tocompress/textures-B.asm src/tocompress/textures-B.bin
+java -jar java/glass-0.5.jar src/tocompress/textures-C.asm src/tocompress/textures-C.bin
+java -jar java/glass-0.5.jar src/tocompress/textures-D.asm src/tocompress/textures-D.bin
+java -jar java/glass-0.5.jar src/tocompress/textures-E.asm src/tocompress/textures-E.bin
+
+java -jar java/glass-0.5.jar src/music/ToPStorySong.asm src/tocompress/ToPStorySong.bin
+java -jar java/glass-0.5.jar src/music/ToPInGameSong.asm src/tocompress/ToPInGameSong.bin
+java -jar java/glass-0.5.jar src/music/ToPBossSong.asm src/tocompress/ToPBossSong.bin
+java -jar java/glass-0.5.jar src/music/ToPStartSong.asm src/tocompress/ToPStartSong.bin
+java -jar java/glass-0.5.jar src/music/ToPGameOverSong.asm src/tocompress/ToPGameOverSong.bin
+
+# compress data with pletter:
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/map-tunnel1.bin src/tocompress/map-tunnel1.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/map-fortress1.bin src/tocompress/map-fortress1.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/map-fortress2.bin src/tocompress/map-fortress2.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/map-catacombs1.bin src/tocompress/map-catacombs1.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/map-catacombs2.bin src/tocompress/map-catacombs2.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/map-medusa1.bin src/tocompress/map-medusa1.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/map-medusa2.bin src/tocompress/map-medusa2.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/map-keres1.bin src/tocompress/map-keres1.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/map-keres2.bin src/tocompress/map-keres2.plt
+
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/patterns.bin src/tocompress/patterns.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/ui.bin src/tocompress/ui.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/base-sprites.bin src/tocompress/base-sprites.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/medusa-sprites.bin src/tocompress/medusa-sprites.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/ker-sprites.bin src/tocompress/ker-sprites.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/title-sprites.bin src/tocompress/title-sprites.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/story.bin src/tocompress/story.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/ending.bin src/tocompress/ending.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/story-image1.bin src/tocompress/story-image1.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/story-image2.bin src/tocompress/story-image2.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/story-image3.bin src/tocompress/story-image3.plt
+
+# java -cp java/MSXTools.jar utils.Pletter src/tocompress/textures.bin src/tocompress/textures.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/textures-A.bin src/tocompress/textures-A.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/textures-B.bin src/tocompress/textures-B.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/textures-C.bin src/tocompress/textures-C.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/textures-D.bin src/tocompress/textures-D.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/textures-E.bin src/tocompress/textures-E.plt
+
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/ToPStorySong.bin src/tocompress/ToPStorySong.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/ToPInGameSong.bin src/tocompress/ToPInGameSong.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/ToPBossSong.bin src/tocompress/ToPBossSong.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/ToPStartSong.bin src/tocompress/ToPStartSong.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/ToPGameOverSong.bin src/tocompress/ToPGameOverSong.plt
+
+rm src/tocompress/*.bin
+# rm src/es/tocompress/*.bin
