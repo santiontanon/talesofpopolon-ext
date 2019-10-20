@@ -66,10 +66,12 @@ raycast_render_next_column:
     ;; compute the offset in the render buffer where this column starts:
     ;; offset = (raycast_column/8)*4*8
     ld a,c  ;; at this point, c still has (raycast_column)
-    and #f8
+    
+    ; NYYRIIKI:
+    xor e  ; e contains "(raycast_column) & #07". So, this is equivalent to: "and #f8"
     ld l,a
-    xor a
-    ld h,a
+    ld h,0
+
     add hl,hl
     add hl,hl
     ex de,hl
@@ -82,9 +84,10 @@ raycast_render_next_column:
 raycast_render_next_column_skip_bank_offset_recalculation:
 
     ;; hl = (raycast_player_angle)*4 + (raycast_column)
+    ;; at this point, c still has (raycast_column)
     ld b,0
 SELFMODIFY_player_angle:
-    ld hl,#0000 ;; <-- this will be substituted by a precomputed (raycast_player_angle)*4
+    ld hl,#0000 ;; <-- this will be substituted by a precomputed (raycast_player_angle)*4 via selfmodifying code
     add hl,bc   ;; hl = (raycast_player_angle)*4 + (raycast_column)
     ;    add hl,bc   ;; hl = (raycast_player_angle)*4 + (raycast_column)
 

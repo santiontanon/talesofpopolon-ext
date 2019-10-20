@@ -34,6 +34,7 @@ java -jar java/glass-0.5.jar src/tocompress/ending.asm src/tocompress/ending.bin
 java -jar java/glass-0.5.jar src/tocompress/story-image1.asm src/tocompress/story-image1.bin
 java -jar java/glass-0.5.jar src/tocompress/story-image2.asm src/tocompress/story-image2.bin
 java -jar java/glass-0.5.jar src/tocompress/story-image3.asm src/tocompress/story-image3.bin
+java -jar java/glass-0.5.jar src/tocompress/skybox-moon.asm src/tocompress/skybox-moon.bin
 
 # java -jar java/glass-0.5.jar src/tocompress/textures.asm src/tocompress/textures.bin
 java -jar java/glass-0.5.jar src/tocompress/textures-A.asm src/tocompress/textures-A.bin
@@ -70,6 +71,7 @@ java -cp java/MSXTools.jar utils.Pletter src/tocompress/ending.bin src/tocompres
 java -cp java/MSXTools.jar utils.Pletter src/tocompress/story-image1.bin src/tocompress/story-image1.plt
 java -cp java/MSXTools.jar utils.Pletter src/tocompress/story-image2.bin src/tocompress/story-image2.plt
 java -cp java/MSXTools.jar utils.Pletter src/tocompress/story-image3.bin src/tocompress/story-image3.plt
+java -cp java/MSXTools.jar utils.Pletter src/tocompress/skybox-moon.bin src/tocompress/skybox-moon.plt
 
 # java -cp java/MSXTools.jar utils.Pletter src/tocompress/textures.bin src/tocompress/textures.plt
 java -cp java/MSXTools.jar utils.Pletter src/tocompress/textures-A.bin src/tocompress/textures-A.plt

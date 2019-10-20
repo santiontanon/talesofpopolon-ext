@@ -112,7 +112,6 @@ SplashScreen_Loop_fadeTitleOut:
 SplashScreen_Loop_goto_title:
     ; space pressed, move on!
     ld a,GAME_STATE_TITLE
-;    ld (game_state),a
     jp change_game_state
 
 SplashScreen_Loop_fadeCycle:

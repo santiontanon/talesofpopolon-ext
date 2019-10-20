@@ -82,7 +82,6 @@ game_speed_set:
 ;    ld a,GAME_STATE_TITLE
 ;    ld a,GAME_STATE_STORY
 ;    ld a,GAME_STATE_PLAYING
-    ld (game_state),a
     jp change_game_state
 ;    jp Game_Loop
 
