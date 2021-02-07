@@ -86,5 +86,5 @@ java -cp java/MSXTools.jar utils.Pletter src/tocompress/ToPBossSong.bin src/toco
 java -cp java/MSXTools.jar utils.Pletter src/tocompress/ToPStartSong.bin src/tocompress/ToPStartSong.plt
 java -cp java/MSXTools.jar utils.Pletter src/tocompress/ToPGameOverSong.bin src/tocompress/ToPGameOverSong.plt
 
-rm src/tocompress/*.bin
+# rm src/tocompress/*.bin
 # rm src/es/tocompress/*.bin

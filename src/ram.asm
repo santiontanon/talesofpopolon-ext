@@ -141,6 +141,7 @@ raycast_player_x:                   ds virtual 1
 raycast_player_y:                   ds virtual 1
 raycast_camera_x:                   ds virtual 1
 raycast_camera_y:                   ds virtual 1
+raycast_column_pixel_mask:          ds virtual 1
 raycast_player_angle:               ds virtual 1
 raycast_first_column:               ds virtual 1
 raycast_last_column:                ds virtual 1
@@ -148,7 +149,6 @@ raycast_column:                     ds virtual 1
 raycast_camera_offset:              ds virtual 1
 raycast_buffer_offset_bank1:        ds virtual 2
 raycast_buffer_offset_bank2:        ds virtual 2
-raycast_column_pixel_mask:          ds virtual 1
 raycast_ceiling_type:				ds virtual 1	; 0: ceiling, 1: skybox
 raycast_texture_set:				ds virtual 1
 raycast_floor_texture_color:        ds virtual 1

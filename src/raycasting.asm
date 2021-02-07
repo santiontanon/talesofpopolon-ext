@@ -1,6 +1,6 @@
 ;-----------------------------------------------
 ; This version of the renderer is an optimized version of the original Tales of Popolon renderer. It contains
-; improved contributed by NYYRIKKI (thank you very much!), as well as some improvements of my own. 
+; improvements contributed by NYYRIKKI (thank you very much!), as well as some improvements of my own. 
 
     include "constants.asm"
     include "../ToP2.sym"
@@ -24,7 +24,7 @@
 ; - ixl: used only during the transition between ceiling to wall to store the type of wall we collided with
 ; - ixh: (raycast_camera_x)
 ; - iyl: contais the "raycast_row" (which screen y coordinate we are currently rendering). 
-; - iyh: raycast_floor_texture_buffer/16
+; - iyh: raycast_floor_texture_buffer/256
 
 ; - I used double indentation throughout this file when we are using the ghost registers, for clarity
 
@@ -33,7 +33,7 @@ raycast_update_selfmodifying_ceiling_code_entry_point_RAM:
     jp raycast_update_selfmodifying_ceiling_code
 
 raycast_render_to_buffer_RAM:
-    ld iy,raycast_floor_texture_buffer
+    ld iyh,raycast_floor_texture_buffer >> 8
 
     ld a,(raycast_camera_x)
     ld ixh,a
@@ -121,12 +121,16 @@ raycast_render_first_quadrant_precompute:
     ld b,h
     ld c,l
 
-    ld hl,raycast_camera_y   ;; we store (raycast_camera_y) in the alternate "e"
-    ld e,(hl)
+    ld de,(raycast_camera_y)  ;; we store (raycast_camera_y) in the alternate "e"
+                              ;; and (raycast_column_pixel_mask) in d
+                              ;; since raycast_column_pixel_mask = raycast_camera_y + 1
 
+;     ld hl,raycast_camera_y   ;; we store (raycast_camera_y) in the alternate "e"
+;     ld e,(hl)
     ;; get the mask we should apply to the pixel:
-    ld hl,raycast_column_pixel_mask
-    ld d,(hl)  ;; d now has the mask we should apply to every pixel along the wall
+;     inc hl  ; since raycast_column_pixel_mask = raycast_camera_y + 1
+;     ld hl,raycast_column_pixel_mask
+;     ld d,(hl)  ;; d now has the mask we should apply to every pixel along the wall
 
     ld hl,(ray_x_offs_table+ray_y_offs_table-32)-1
     xor a
@@ -243,12 +247,16 @@ raycast_render_second_quadrant_precompute:
     ld b,h
     ld c,l
 
-    ld hl,raycast_camera_y   ;; we store (raycast_camera_y) in the alternate "e"
-    ld e,(hl)
+    ld de,(raycast_camera_y)  ;; we store (raycast_camera_y) in the alternate "e"
+                              ;; and (raycast_column_pixel_mask) in d
+                              ;; since raycast_column_pixel_mask = raycast_camera_y + 1
 
+;     ld hl,raycast_camera_y   ;; we store (raycast_camera_y) in the alternate "e"
+;     ld e,(hl)
     ;; get the mask we should apply to the pixel:
-    ld hl,raycast_column_pixel_mask
-    ld d,(hl)  ;; d now has the mask we should apply to every pixel along the wall
+;     inc hl  ; since raycast_column_pixel_mask = raycast_camera_y + 1
+;     ld hl,raycast_column_pixel_mask
+;     ld d,(hl)  ;; d now has the mask we should apply to every pixel along the wall
 
     ld hl,(ray_x_offs_table+ray_y_offs_table-32)-1
     xor a
@@ -357,12 +365,16 @@ raycast_render_third_quadrant_precompute:
     ld b,h
     ld c,l
 
-    ld hl,raycast_camera_y   ;; we store (raycast_camera_y) in the alternate "e"
-    ld e,(hl)
+    ld de,(raycast_camera_y)  ;; we store (raycast_camera_y) in the alternate "e"
+                              ;; and (raycast_column_pixel_mask) in d
+                              ;; since raycast_column_pixel_mask = raycast_camera_y + 1
 
+;     ld hl,raycast_camera_y   ;; we store (raycast_camera_y) in the alternate "e"
+;     ld e,(hl)
     ;; get the mask we should apply to the pixel:
-    ld hl,raycast_column_pixel_mask
-    ld d,(hl)  ;; d now has the mask we should apply to every pixel along the wall
+;     inc hl  ; since raycast_column_pixel_mask = raycast_camera_y + 1
+;     ld hl,raycast_column_pixel_mask
+;     ld d,(hl)  ;; d now has the mask we should apply to every pixel along the wall
 
     ld hl,(ray_x_offs_table+ray_y_offs_table-32)-1
     xor a
@@ -452,12 +464,16 @@ raycast_render_fourth_quadrant_precompute:
     ld b,h
     ld c,l
 
-    ld hl,raycast_camera_y   ;; we store (raycast_camera_y) in the alternate "e"
-    ld e,(hl)
+    ld de,(raycast_camera_y)  ;; we store (raycast_camera_y) in the alternate "e"
+                              ;; and (raycast_column_pixel_mask) in d
+                              ;; since raycast_column_pixel_mask = raycast_camera_y + 1
 
+;     ld hl,raycast_camera_y   ;; we store (raycast_camera_y) in the alternate "e"
+;     ld e,(hl)
     ;; get the mask we should apply to the pixel:
-    ld hl,raycast_column_pixel_mask
-    ld d,(hl)  ;; d now has the mask we should apply to every pixel along the wall
+;     inc hl  ; since raycast_column_pixel_mask = raycast_camera_y + 1
+;     ld hl,raycast_column_pixel_mask
+;     ld d,(hl)  ;; d now has the mask we should apply to every pixel along the wall
 
     ld hl,(ray_x_offs_table+ray_y_offs_table-32)-1
     xor a
@@ -551,7 +567,7 @@ raycast_render_wall_from_fourth_quadrant:
 ;; ---- BACKGROUND RENDERING STARTS HERE ----
 ;; -------------------------------------
 
-    ;; Skips all the middle pixels (those that are too far to render)
+;; Skips all the middle pixels (those that are too far to render)
 raycast_render_bg:
     exx
     ld hl,(raycast_buffer_offset_bank2)
@@ -771,7 +787,7 @@ raycast_render_wall_loop_top_half:
     ld (hl),a ;; render color
     ld a,(bc)
 SELFMODIFY_or_mask1:
-    or #00      ;; <-- this will be substituted by the proper mask to or
+    or #00      ;; mdl:no-opt <-- this will be substituted by the proper mask to or.
     ld (bc),a   ;; render pixel
 raycast_render_wall_loop_top_half_continue:
     inc hl
@@ -804,7 +820,7 @@ raycast_render_wall_loop_bottom_half:
     ld (hl),a ;; render color
     ld a,(bc)
 SELFMODIFY_or_mask2:
-    or #00      ;; <-- this will be substituted by the proper mask to or
+    or #00      ;; mdl:no-opt <-- this will be substituted by the proper mask to or.
     ld (bc),a ;; render pixel
 raycast_render_wall_loop_bottom_half_continue:
     inc l   ; NYYRIKKI
@@ -862,7 +878,8 @@ raycast_render_done_with_column:
     ld a,(hl)
     add a,2
     ld (hl),a
-    ld hl,raycast_last_column
+    dec hl  ; since raycast_last_column = raycast_column-1
+;     ld hl,raycast_last_column
     cp (hl)
     jp nz,raycast_render_next_column
     ret
